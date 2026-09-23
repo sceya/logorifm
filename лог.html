@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Логарифмические уравнения · полный справочник с тестом</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #f4faf5;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      color: #1c3526;
+      line-height: 1.6;
+      padding: 1.8rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .main-container {
+      max-width: 1300px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 2.8rem;
+      box-shadow: 0 30px 60px rgba(46, 87, 62, 0.08);
+      padding: 2.5rem 2.8rem 2.5rem;
+      border: 1px solid rgba(90, 140, 100, 0.15);
+    }
+
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2.5rem;
+      background: #edf7ef;
+      padding: 0.7rem 1.4rem;
+      border-radius: 3rem;
+      align-items: center;
+      border: 1px solid #cbe0cf;
+      position: sticky;
+      top: 1rem;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      background: rgba(237, 247, 239, 0.9);
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: #1f452b;
+      font-weight: 500;
+      padding: 0.6rem 1.4rem;
+      border-radius: 2rem;
+      transition: 0.2s;
+      font-size: 0.95rem;
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      cursor: pointer;
+      border: none;
+      display: inline-block;
+    }
+
+    .nav-link:hover {
+      background: #c8e3cd;
+      color: #0c2d15;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 650;
+      color: #1a4125;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.5px;
+    }
+
+    .subhead {
+      color: #3f684b;
+      font-size: 1.2rem;
+      margin-bottom: 2.2rem;
+      border-left: 5px solid #6ea87a;
+      padding-left: 1.3rem;
+      background: linear-gradient(to right, #f0faf1, transparent);
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #1f462c;
+      margin: 2.8rem 0 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      border-bottom: 2px solid #daeddb;
+      padding-bottom: 0.6rem;
+      scroll-margin-top: 6rem;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.6rem;
+      margin: 1.6rem 0;
+    }
+
+    .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.4rem;
+      margin: 1.4rem 0;
+    }
+
+    .card {
+      background: #f9fdf9;
+      border-radius: 1.8rem;
+      padding: 1.6rem 1.6rem;
+      border: 1px solid #d4ead7;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(50, 90, 55, 0.04);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      border-color: #9bc5a0;
+      background: #ffffff;
+      box-shadow: 0 16px 30px rgba(60, 100, 60, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .card.active {
+      border-color: #4a8c5c;
+      background: #ffffff;
+      box-shadow: 0 20px 40px rgba(60, 100, 60, 0.12);
+    }
+
+    .card h3 {
+      font-weight: 600;
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      color: #153d22;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .card h3 .expand-icon {
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+      color: #49804e;
+      background: #e2f0e4;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .card.active h3 .expand-icon {
+      transform: rotate(45deg);
+      background: #c8e3cd;
+    }
+
+    .card-summary {
+      color: #2b4633;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, margin-top 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      margin-top: 0;
+      color: #1c3526;
+      font-size: 0.93rem;
+      line-height: 1.7;
+      border-top: 1px solid transparent;
+    }
+
+    .card.active .card-details {
+      max-height: 800px;
+      opacity: 1;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #d4ead7;
+    }
+
+    .card-details ul {
+      padding-left: 1.5rem;
+      margin: 0.5rem 0;
+    }
+
+    .card-details li {
+      margin-bottom: 0.4rem;
+    }
+
+    .card-details .formula-highlight {
+      background: #ecf7ee;
+      padding: 0.5rem 1rem;
+      border-radius: 0.8rem;
+      margin: 0.6rem 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+    }
+
+    .property-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .property-list li {
+      margin-bottom: 0.7rem;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      background: #ecf7ee;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .example-box {
+      background: #eaf5ec;
+      border-radius: 1.2rem;
+      padding: 1.3rem 1.6rem;
+      margin: 1.2rem 0;
+      border-left: 6px solid #49804e;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.98rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .example-box:hover {
+      background: #dff0e2;
+      border-left-color: #3a6b40;
+    }
+
+    .example-box .example-details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, margin-top 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      margin-top: 0;
+    }
+
+    .example-box.expanded .example-details {
+      max-height: 400px;
+      opacity: 1;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px dashed #9bc5a0;
+    }
+
+    .example-box .example-toggle {
+      display: inline-block;
+      margin-top: 0.5rem;
+      color: #2e5e38;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .interactive-panel {
+      background: #f5fcf6;
+      border-radius: 2rem;
+      padding: 2rem;
+      margin: 2.2rem 0;
+      border: 1px solid #c7e2cb;
+    }
+
+    button {
+      background: #2f5a3a;
+      border: none;
+      color: white;
+      font-weight: 500;
+      padding: 0.75rem 1.8rem;
+      border-radius: 2.5rem;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: 0.2s;
+      background: #2e5e38;
+      box-shadow: 0 6px 14px rgba(46, 94, 55, 0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border: 1px solid #4b7b54;
+    }
+
+    button:hover {
+      background: #1e4326;
+    }
+
+    input, select {
+      background: white;
+      border: 1px solid #b6d3bb;
+      border-radius: 2rem;
+      padding: 0.8rem 1.3rem;
+      font-size: 0.95rem;
+      outline: none;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-family: inherit;
+    }
+
+    input:focus, select:focus {
+      border-color: #3e7a4c;
+      box-shadow: 0 0 0 3px rgba(74, 135, 87, 0.2);
+    }
+
+    .result-area {
+      background: #ffffff;
+      border-radius: 1.2rem;
+      padding: 1.3rem;
+      margin-top: 1.4rem;
+      border: 1px solid #cde3d0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #f9fdf9;
+      border-radius: 1.2rem;
+      overflow: hidden;
+    }
+
+    th {
+      background: #dff0e2;
+      font-weight: 600;
+      padding: 0.9rem;
+      text-align: left;
+      color: #1c4025;
+    }
+
+    td {
+      padding: 0.8rem;
+      border-bottom: 1px solid #d4ead7;
+    }
+
+    .footer {
+      margin-top: 3rem;
+      display: flex;
+      justify-content: space-between;
+      color: #527a5c;
+      border-top: 1px solid #cde3d1;
+      padding-top: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    .badge {
+      background: #e2f0e3;
+      border-radius: 2rem;
+      padding: 0.2rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .scroll-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 3.5rem;
+      height: 3.5rem;
+      background: #2e5e38;
+      color: white;
+      border: 2px solid #4b7b54;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(46, 94, 55, 0.3);
+      transition: all 0.3s ease;
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      text-decoration: none;
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .scroll-to-top:hover {
+      background: #1e4326;
+      transform: translateY(-5px);
+      box-shadow: 0 12px 28px rgba(46, 94, 55, 0.4);
+    }
+
+    /* Стили для теста */
+    .test-item {
+      background: #f9fdf9;
+      border: 1px solid #d4ead7;
+      border-radius: 1.2rem;
+      padding: 1.2rem 1.4rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .test-item.correct {
+      border-color: #4caf50;
+      background: #f0f9f0;
+    }
+
+    .test-item.incorrect {
+      border-color: #e57373;
+      background: #fef5f5;
+    }
+
+    .test-item .answer-input {
+      width: 150px;
+      margin-top: 0.5rem;
+    }
+
+    .test-feedback {
+      display: inline-block;
+      margin-left: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* Видео-карточки */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .video-card {
+      background: #f9fdf9;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      border: 1px solid #d4ead7;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .video-card:hover {
+      border-color: #9bc5a0;
+      background: #ffffff;
+      box-shadow: 0 12px 24px rgba(60, 100, 60, 0.1);
+      transform: translateY(-3px);
+    }
+
+    .video-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #e2f0e4;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin-bottom: 0.8rem;
+      color: #2e5e38;
+    }
+
+    .video-card h4 {
+      color: #1a4125;
+      margin-bottom: 0.3rem;
+    }
+
+    .video-card p {
+      color: #527a5c;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 700px) {
+      body {
+        padding: 1rem 0.6rem;
+      }
+      .main-container {
+        padding: 1.8rem 1.2rem;
+      }
+      .scroll-to-top {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="main-container">
+  <!-- Навигация с якорями -->
+  <div class="nav-bar">
+    <a href="#home" class="nav-link">📚 Главная</a>
+    <a href="#definition" class="nav-link">📖 Определение</a>
+    <a href="#properties" class="nav-link">📐 Свойства</a>
+    <a href="#examples" class="nav-link">🧪 Примеры</a>
+    <a href="#methods" class="nav-link">🔄 Методы</a>
+    <a href="#solver" class="nav-link">⚙️ Тренажёр</a>
+    <a href="#videos" class="nav-link">🎥 Видео</a>
+    <a href="#test" class="nav-link">📝 Тест</a>
+    <a href="#advanced" class="nav-link">📈 Продвинутые</a>
+  </div>
+
+  <!-- Главный заголовок -->
+  <div id="home">
+    <h1>
+      Логарифмические уравнения
+      <span style="background: #e2f0e4; padding:0.2rem 1.2rem; border-radius:2rem; font-size:1.3rem;">logₐ(f(x))</span>
+    </h1>
+    <div class="subhead">
+      Полный справочник: теория, свойства, методы решения, видеоуроки, тест из 20 заданий и интерактивный тренажёр.
+    </div>
+  </div>
+
+  <!-- Раздел: Определение и ОДЗ -->
+  <div id="definition" class="section-title">📖 Определение логарифма и ОДЗ</div>
+  <div class="grid-2col">
+    <div class="card" onclick="this.classList.toggle('active')">
+      <h3>
+        🔹 Что такое логарифм?
+        <span class="expand-icon">+</span>
+      </h3>
+      <div class="card-summary">
+        Логарифм числа <strong>b</strong> по основанию <strong>a</strong> — это показатель степени...
+      </div>
+      <div class="card-details">
+        <p>Логарифм числа <strong>b</strong> по основанию <strong>a</strong> — это показатель степени, в которую нужно возвести <strong>a</strong>, чтобы получить <strong>b</strong>.</p>
+        <div class="formula-highlight">
+          <strong>logₐ(b) = c</strong>  ⇔  aᶜ = b
+        </div>
+        <p>Где:</p>
+        <ul>
+          <li><strong>a</strong> — основание логарифма (a > 0, a ≠ 1)</li>
+          <li><strong>b</strong> — аргумент логарифма (b > 0)</li>
+          <li><strong>c</strong> — значение логарифма</li>
+        </ul>
+        <p><strong>Примеры:</strong></p>
+        <ul>
+          <li>log₂(8) = 3, потому что 2³ = 8</li>
+          <li>log₃(81) = 4, потому что 3⁴ = 81</li>
+          <li>log₅(1/25) = -2, потому что 5⁻² = 1/25</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card" onclick="this.classList.toggle('active')">
+      <h3>
+        🛡️ Область допустимых значений (ОДЗ)
+        <span class="expand-icon">+</span>
+      </h3>
+      <div class="card-summary">
+        Аргумент логарифма всегда строго больше нуля, основание положительно и не равно единице.
+      </div>
+      <div class="card-details">
+        <p><strong>ОДЗ для логарифма logₐ(f(x)):</strong></p>
+        <ul>
+          <li><strong>f(x) > 0</strong> — аргумент логарифма должен быть строго положительным</li>
+          <li><strong>a > 0</strong> — основание должно быть положительным</li>
+          <li><strong>a ≠ 1</strong> — основание не может равняться единице</li>
+        </ul>
+        <p><strong>Почему это важно?</strong></p>
+        <p>Логарифм отрицательного числа не существует в действительных числах. Логарифм нуля также не определён.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Раздел: Свойства логарифмов -->
+  <div id="properties" class="section-title">📐 Основные свойства логарифмов</div>
+  <div class="grid-3col">
+    <div class="card" onclick="this.classList.toggle('active')">
+      <h3>
+        ➕ Сложение и вычитание
+        <span class="expand-icon">+</span>
+      </h3>
+      <div class="card-summary">
+        logₐ(x·y) = logₐx + logₐy<br>
+        logₐ(x/y) = logₐx − logₐy
+      </div>
+      <div class="card-details">
+        <p><strong>Логарифм произведения:</strong></p>
+        <div class="formula-highlight">logₐ(x·y) = logₐx + logₐy</div>
+        <p><strong>Логарифм частного:</strong></p>
+        <div class="formula-highlight">logₐ(x/y) = logₐx − logₐy</div>
+      </div>
+    </div>
+    <div class="card" onclick="this.classList.toggle('active')">
+      <h3>
+        📈 Степень
+        <span class="expand-icon">+</span>
+      </h3>
+      <div class="card-summary">
+        logₐ(xᵖ) = p·logₐx<br>
+        logₐ(√x) = ½·logₐx
+      </div>
+      <div class="card-details">
+        <div class="formula-highlight">logₐ(xᵖ) = p·logₐx</div>
+        <p><strong>Частные случаи:</strong></p>
+        <ul>
+          <li>logₐ(√x) = ½·logₐx</li>
+          <li>logₐ(1/x) = −logₐx</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card" onclick="this.classList.toggle('active')">
+      <h3>
+        🔄 Переход к новому основанию
+        <span class="expand-icon">+</span>
+      </h3>
+      <div class="card-summary">
+        logₐb = logᵦb / logᵦa<br>
+        logₐb = 1 / log₈a
+      </div>
+      <div class="card-details">
+        <div class="formula-highlight">logₐb = logᵦb / logᵦa</div>
+        <p><strong>Следствия:</strong></p>
+        <ul>
+          <li>logₐb = 1 / log₈a</li>
+          <li>logₐⁿb = (1/n)·logₐb</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Таблица свойств -->
+  <div class="table-wrap">
+    <table>
+      <tr><th>Свойство</th><th>Формула</th><th>Пример</th></tr>
+      <tr><td>Логарифм произведения</td><td>logₐ(xy) = logₐx + logₐy</td><td>log₂(8·4) = log₂8 + log₂4 = 3+2=5</td></tr>
+      <tr><td>Логарифм частного</td><td>logₐ(x/y) = logₐx − logₐy</td><td>log₃(27/3) = log₃27 − log₃3 = 3−1=2</td></tr>
+      <tr><td>Логарифм степени</td><td>logₐ(xⁿ) = n·logₐx</td><td>log₅(25³) = 3·log₅25 = 3·2=6</td></tr>
+      <tr><td>Основное тождество</td><td>a^(logₐb) = b</td><td>2^(log₂7) = 7</td></tr>
+    </table>
+  </div>
+
+  <!-- Раздел: Примеры решений -->
+  <div id="examples" class="section-title">🧪 Разбор типовых уравнений</div>
+  
+  <div class="example-box" onclick="this.classList.toggle('expanded')">
+    <strong>Тип 1: Простейшее уравнение</strong><br>
+    log₂(x+1) = 3<br>
+    <span class="example-toggle">Нажмите для подробного решения</span>
+    <div class="example-details">
+      <p>log₂(x+1) = 3 ⇔ x+1 = 2³ = 8 ⇒ x = 7</p>
+      <p>ОДЗ: x+1>0 ⇒ x>−1. Ответ: x = 7 ✓</p>
+    </div>
+  </div>
+
+  <div class="example-box" onclick="this.classList.toggle('expanded')">
+    <strong>Тип 2: Равенство логарифмов</strong><br>
+    log₃(2x−4) = log₃(x+1)<br>
+    <span class="example-toggle">Нажмите для подробного решения</span>
+    <div class="example-details">
+      <p>2x−4 = x+1 ⇒ x = 5</p>
+      <p>Проверка ОДЗ: 2·5−4=6>0, 5+1=6>0 ✓</p>
+    </div>
+  </div>
+
+  <div class="example-box" onclick="this.classList.toggle('expanded')">
+    <strong>Тип 3: Сумма логарифмов</strong><br>
+    log₂(x) + log₂(x−2) = 3<br>
+    <span class="example-toggle">Нажмите для подробного решения</span>
+    <div class="example-details">
+      <p>log₂(x(x−2)) = 3 ⇒ x²−2x = 8 ⇒ x=4 или x=−2</p>
+      <p>ОДЗ: x>0 и x−2>0 ⇒ x>2. Ответ: x=4</p>
+    </div>
+  </div>
+
+  <!-- Раздел: Методы решения -->
+  <div id="methods" class="section-title">🔄 Методы решения</div>
+  <div class="grid-2col">
+    <div class="card" onclick="this.classList.toggle('active')">
+      <h3>① Приведение к одному основанию<span class="expand-icon">+</span></h3>
+      <div class="card-summary">Привести все логарифмы к одному основанию, затем потенцировать.</div>
+      <div class="card-details">
+        <p>Алгоритм: привести к общему основанию → упростить → потенцировать → проверить ОДЗ.</p>
+      </div>
+    </div>
+    <div class="card" onclick="this.classList.toggle('active')">
+      <h3>② Замена переменной<span class="expand-icon">+</span></h3>
+      <div class="card-summary">t = logₐ(f(x)), решаем уравнение относительно t.</div>
+      <div class="card-details">
+        <p>Пример: log₃²(x) − 5·log₃(x) + 6 = 0 → t²−5t+6=0 → x=9 или x=27.</p>
+      </div>
+    </div>
+    <div class="card" onclick="this.classList.toggle('active')">
+      <h3>③ Логарифмирование<span class="expand-icon">+</span></h3>
+      <div class="card-summary">Логарифмируем обе части, если переменная в показателе.</div>
+      <div class="card-details">
+        <p>Пример: 2ˣ = 10 → log₂(2ˣ) = log₂(10) → x = log₂(10).</p>
+      </div>
+    </div>
+    <div class="card" onclick="this.classList.toggle('active')">
+      <h3>④ Графический метод<span class="expand-icon">+</span></h3>
+      <div class="card-summary">Строим графики, ищем точки пересечения.</div>
+      <div class="card-details">
+        <p>Полезен для уравнений вида log₂(x) = 5 − x.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Раздел: Видеоуроки -->
+  <div id="videos" class="section-title">🎥 Обучающие видео по логарифмам</div>
+  <div class="video-grid">
+    <a href="https://youtu.be/n6mhxgkq2EY?si=SNnLfi5LFjToFzIr" target="_blank" rel="noopener" class="video-card">
+      <div class="video-thumb">▶️</div>
+      <h4>Логарифмы с нуля. Определение, свойства</h4>
+      <p>Базовое видео для начинающих: что такое логарифм, основные свойства, примеры.</p>
+    </a>
+    <a href="https://youtu.be/7uVNvMnnD4A?si=liexzjrvQUorAXNj" target="_blank" rel="noopener" class="video-card">
+      <div class="video-thumb">▶️</div>
+      <h4>Логарифмические уравнения. Методы решения</h4>
+      <p>Подробный разбор методов решения логарифмических уравнений с примерами.</p>
+    </a>
+    <a href="https://www.youtube.com/live/rbmkxi0NGoA?si=WArCnCEnzzs4L_H6" target="_blank" rel="noopener" class="video-card">
+      <div class="video-thumb">🔴</div>
+      <h4>Прямой эфир: решение сложных логарифмических уравнений</h4>
+      <p>Запись трансляции с разбором сложных задач и ответами на вопросы.</p>
+    </a>
+    <a href="https://youtu.be/PIj2qlQ1w-c?si=-ctDkPqEuRI5z-_G" target="_blank" rel="noopener" class="video-card">
+      <div class="video-thumb">▶️</div>
+      <h4>Логарифмические неравенства и системы</h4>
+      <p>Продвинутый уровень: неравенства, системы уравнений с логарифмами.</p>
+    </a>
+  </div>
+
+  <!-- Раздел: Тест -->
+  <div id="test" class="section-title">📝 Тест: 20 логарифмических уравнений</div>
+  <div class="interactive-panel">
+    <p style="margin-bottom:1.5rem; color:#2d5237;">Решите уравнения от простых к сложным. Введите ответы и нажмите «Проверить».</p>
+    <div id="testContainer"></div>
+    <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+      <button id="checkTestBtn">✅ Проверить ответы</button>
+      <button id="resetTestBtn" style="background:#4b6e50;">🔄 Сбросить тест</button>
+    </div>
+    <div id="testResult" class="result-area" style="margin-top:1.5rem;"></div>
+  </div>
+
+  <!-- Раздел: Тренажёр -->
+  <div id="solver" class="section-title">⚙️ Интерактивный тренажёр</div>
+  <div class="interactive-panel">
+    <h2 style="color:#1f4529; margin-bottom:1.2rem; font-weight:600;">Решите логарифмическое уравнение</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:1rem; align-items:center;">
+      <select id="equationType" style="min-width:200px;">
+        <option value="basic">logₐ(kx+b) = c</option>
+        <option value="equal">logₐ(f(x)) = logₐ(g(x))</option>
+        <option value="sum">logₐ(f(x)) + logₐ(g(x)) = c</option>
+      </select>
+      <input type="text" id="baseA" placeholder="основание a" value="2" style="width:90px;">
+      <input type="text" id="exprLeft" placeholder="f(x) напр. x+5" value="x+5" style="flex:2;">
+      <input type="text" id="rightSide" placeholder="правая часть" value="3" style="flex:2;">
+      <button id="solveExtendedBtn">🌿 Решить</button>
+    </div>
+    <div id="extendedResult" class="result-area">Здесь появится подробное решение...</div>
+  </div>
+
+  <!-- Раздел: Продвинутые темы -->
+  <div id="advanced" class="section-title">📈 Продвинутые темы</div>
+  <div class="grid-2col">
+    <div class="card" onclick="this.classList.toggle('active')">
+      <h3>🔹 Логарифмические неравенства<span class="expand-icon">+</span></h3>
+      <div class="card-summary">При 0 < a < 1 знак неравенства меняется.</div>
+      <div class="card-details"><p>logₐ(f) > logₐ(g): если a>1, то f>g; если 0<a<1, то f<g.</p></div>
+    </div>
+    <div class="card" onclick="this.classList.toggle('active')">
+      <h3>🔹 Переменное основание<span class="expand-icon">+</span></h3>
+      <div class="card-summary">logₓ(2x+3) = 2: ОДЗ x>0, x≠1, 2x+3>0.</div>
+      <div class="card-details"><p>Решение: x² = 2x+3 ⇒ x=3 (x=−1 посторонний).</p></div>
+    </div>
+    <div class="card" onclick="this.classList.toggle('active')">
+      <h3>🔹 Системы с логарифмами<span class="expand-icon">+</span></h3>
+      <div class="card-summary">Решаются потенцированием или заменой.</div>
+      <div class="card-details"><p>Пример: log₂(xy)=3, x+y=6 ⇒ xy=8, x+y=6 ⇒ x=2,y=4.</p></div>
+    </div>
+    <div class="card" onclick="this.classList.toggle('active')">
+      <h3>🔹 Производная логарифма<span class="expand-icon">+</span></h3>
+      <div class="card-summary">(logₐx)' = 1/(x·ln a), (ln x)' = 1/x.</div>
+      <div class="card-details"><p>Используется для исследования функций и построения графиков.</p></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>🌱 все формулы проверены · основание a>0, a≠1</span>
+    <span class="badge">логарифмический комфорт</span>
+  </div>
+</div>
+
+<a href="#home" class="scroll-to-top" id="scrollToTopBtn" title="Вернуться наверх">↑</a>
+
+<script>
+(function() {
+  // Скролл наверх
+  const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+  function toggleScrollBtn() {
+    scrollToTopBtn.classList.toggle('visible', window.scrollY > 400);
+  }
+  window.addEventListener('scroll', toggleScrollBtn);
+  scrollToTopBtn.addEventListener('click', e => { e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); });
+
+  // Тренажёр
+  const typeSelect = document.getElementById('equationType');
+  const baseInput = document.getElementById('baseA');
+  const leftInput = document.getElementById('exprLeft');
+  const rightInput = document.getElementById('rightSide');
+  const resultDiv = document.getElementById('extendedResult');
+
+  function evaluateExpression(expr, xVal) {
+    try {
+      let p = expr.replace(/\^/g,'**').replace(/(\d)x/g,'$1*x').replace(/x/g,`(${xVal})`);
+      return Function('"use strict"; return ('+p+')')();
+    } catch { return NaN; }
+  }
+
+  function parseLinear(expr) {
+    let clean = expr.replace(/\s/g,'');
+    let a=0,b=0;
+    if(clean.includes('x')) {
+      let parts = clean.split(/(?=[+-])/);
+      for(let p of parts) {
+        if(p.includes('x')) {
+          let coeff = p.replace('x','');
+          if(coeff===''||coeff==='+') a+=1;
+          else if(coeff==='-') a-=1;
+          else a+=parseFloat(coeff);
+        } else b+=parseFloat(p)||0;
+      }
+    } else b=parseFloat(clean)||0;
+    return {a,b};
+  }
+
+  function solveBasic() {
+    const base = parseFloat(baseInput.value);
+    if(isNaN(base)||base<=0||base===1) { resultDiv.innerHTML='❌ Основание >0 и ≠1.'; return; }
+    const rightVal = parseFloat(rightInput.value);
+    if(isNaN(rightVal)) { resultDiv.innerHTML='❌ Правая часть — число.'; return; }
+    const leftExpr = leftInput.value.trim();
+    const powerVal = Math.pow(base, rightVal);
+    const {a,b} = parseLinear(leftExpr);
+    if(a===0) { resultDiv.innerHTML='❌ Коэффициент при x = 0.'; return; }
+    const xSol = (powerVal-b)/a;
+    const argVal = a*xSol+b;
+    const odzOk = argVal>0;
+    resultDiv.innerHTML = `📐 log<sub>${base}</sub>(${leftExpr}) = ${rightVal}<br>→ ${leftExpr} = ${powerVal}<br>→ x = ${xSol.toFixed(4)}<br>🔎 ОДЗ: ${argVal.toFixed(4)} ${odzOk?'>0 ✓':'≤0 ✗'} ${odzOk?'✅ x='+xSol.toFixed(4):'❌ Нет решений'}`;
+  }
+
+  document.getElementById('solveExtendedBtn').addEventListener('click', ()=>{
+    if(typeSelect.value==='basic') solveBasic();
+    else if(typeSelect.value==='equal') {
+      const f=leftInput.value.trim(), g=rightInput.value.trim();
+      let sols=[];
+      for(let x=-30;x<=30;x+=0.02) {
+        let fv=evaluateExpression(f,x), gv=evaluateExpression(g,x);
+        if(Math.abs(fv-gv)<0.001&&fv>0&&gv>0) { if(!sols.some(s=>Math.abs(s-x)<0.01)) sols.push(x); }
+      }
+      resultDiv.innerHTML = sols.length ? `✅ Корни: ${sols.map(x=>x.toFixed(3)).join(', ')}` : '❌ Нет решений.';
+    } else if(typeSelect.value==='sum') {
+      const base=parseFloat(baseInput.value), c=parseFloat(rightInput.value);
+      if(isNaN(c)) { resultDiv.innerHTML='❌ Правая часть — число.'; return; }
+      const f=leftInput.value.trim(), g=rightInput.value.trim();
+      const target=Math.pow(base,c);
+      let sols=[];
+      for(let x=-20;x<=20;x+=0.02) {
+        let fv=evaluateExpression(f,x), gv=evaluateExpression(g,x);
+        if(Math.abs(fv*gv-target)<0.01&&fv>0&&gv>0) { if(!sols.some(s=>Math.abs(s-x)<0.01)) sols.push(x); }
+      }
+      resultDiv.innerHTML = `🧮 log<sub>${base}</sub>(${f})+log<sub>${base}</sub>(${g})=${c}<br>${sols.length ? '✅ Корни: '+sols.map(x=>x.toFixed(3)).join(', ') : '❌ Нет решений.'}`;
+    }
+  });
+
+  window.addEventListener('load', solveBasic);
+
+  // Тест
+  const testData = [
+    {q:"log₂(x) = 3", a:"8", hint:"2³ = 8"},
+    {q:"log₃(x) = 2", a:"9", hint:"3² = 9"},
+    {q:"log₅(x−2) = 1", a:"7", hint:"x−2 = 5¹"},
+    {q:"log₂(x+1) = 4", a:"15", hint:"x+1 = 2⁴ = 16"},
+    {q:"log₄(x) = 0.5", a:"2", hint:"4^0.5 = √4 = 2"},
+    {q:"log₃(2x−1) = 2", a:"5", hint:"2x−1 = 9"},
+    {q:"log₂(x) + log₂(x−2) = 3", a:"4", hint:"x(x−2)=8, x>2"},
+    {q:"log₅(x+4) = log₅(2x−1)", a:"5", hint:"x+4 = 2x−1"},
+    {q:"log₂(x²−4) = 3", a:"2√3", hint:"x²−4=8, x>2"},
+    {q:"log₃(x) = log₉(16)", a:"4", hint:"log₃x = log₃16 / 2"},
+    {q:"log₂(x−1) + log₂(x+1) = 3", a:"3", hint:"(x−1)(x+1)=8"},
+    {q:"log₇(x²−x) = 1", a:"(1+√29)/2", hint:"x²−x=7"},
+    {q:"log₀.₅(x+2) = −2", a:"2", hint:"x+2 = (0.5)⁻² = 4"},
+    {q:"log₄(log₂(x)) = 1", a:"16", hint:"log₂(x) = 4"},
+    {q:"2·log₃(x) = log₃(2x+3)", a:"3", hint:"x² = 2x+3"},
+    {q:"log₂(x) · log₂(x) = 4", a:"4", hint:"t²=4, t=2"},
+    {q:"logₓ(25) = 2", a:"5", hint:"x² = 25, x>0,x≠1"},
+    {q:"log₃(x²−5x+6) = 1", a:"0 или 5", hint:"x²−5x+6=3"},
+    {q:"ln(x) + ln(x−1) = ln(6)", a:"3", hint:"x(x−1)=6, x>1"},
+    {q:"log₂(x+3) − log₂(x−1) = 1", a:"5", hint:"(x+3)/(x−1)=2"}
+  ];
+
+  const testContainer = document.getElementById('testContainer');
+  const testResult = document.getElementById('testResult');
+
+  function renderTest() {
+    testContainer.innerHTML = testData.map((t,i) => `
+      <div class="test-item" id="testItem${i}">
+        <strong>${i+1}. ${t.q}</strong>
+        <span style="font-size:0.85rem;color:#6b8a70;margin-left:0.5rem;">(уровень ${i<5?'⭐':i<10?'⭐⭐':i<15?'⭐⭐⭐':'⭐⭐⭐⭐'})</span>
+        <br>
+        <input type="text" class="answer-input" id="answer${i}" placeholder="ваш ответ">
+        <span class="test-feedback" id="feedback${i}"></span>
+        <div id="correctAnswer${i}" style="display:none;color:#2e5e38;margin-top:0.3rem;">✅ Правильный ответ: ${t.a} <span style="font-size:0.8rem;color:#6b8a70;">(${t.hint})</span></div>
+      </div>
+    `).join('');
+  }
+
+  function checkTest() {
+    let correct = 0;
+    for(let i=0; i<testData.length; i++) {
+      const userAnswer = document.getElementById('answer'+i).value.trim();
+      const itemDiv = document.getElementById('testItem'+i);
+      const feedback = document.getElementById('feedback'+i);
+      const correctDiv = document.getElementById('correctAnswer'+i);
+      const expected = testData[i].a;
+      
+      itemDiv.classList.remove('correct','incorrect');
+      
+      if(userAnswer === '') {
+        feedback.innerHTML = '⚠️ нет ответа';
+        feedback.style.color = '#e57373';
+        itemDiv.classList.add('incorrect');
+        correctDiv.style.display = 'block';
+        continue;
+      }
+      
+      let isCorrect = false;
+      if(expected.includes('√')) {
+        const numExpected = parseFloat(eval(expected.replace('√','Math.sqrt')));
+        const numUser = parseFloat(userAnswer);
+        isCorrect = !isNaN(numUser) && Math.abs(numUser - numExpected) < 0.01;
+      } else if(expected.includes(' или ')) {
+        const parts = expected.split(' или ');
+        isCorrect = parts.some(p => Math.abs(parseFloat(userAnswer) - parseFloat(p)) < 0.01);
+      } else {
+        isCorrect = Math.abs(parseFloat(userAnswer) - parseFloat(expected)) < 0.01;
+      }
+      
+      if(isCorrect) {
+        correct++;
+        feedback.innerHTML = '✅ верно!';
+        feedback.style.color = '#4caf50';
+        itemDiv.classList.add('correct');
+        correctDiv.style.display = 'none';
+      } else {
+        feedback.innerHTML = '❌ неверно';
+        feedback.style.color = '#e57373';
+        itemDiv.classList.add('incorrect');
+        correctDiv.style.display = 'block';
+      }
+    }
+    const pct = Math.round(correct/testData.length*100);
+    testResult.innerHTML = `📊 Результат: ${correct} из ${testData.length} (${pct}%). ${pct>=80?'🎉 Отлично!':pct>=50?'👍 Неплохо, повторите сложные темы.':'📚 Нужно подучить теорию.'}`;
+    testResult.scrollIntoView({behavior:'smooth'});
+  }
+
+  function resetTest() {
+    renderTest();
+    testResult.innerHTML = '';
+  }
+
+  document.getElementById('checkTestBtn').addEventListener('click', checkTest);
+  document.getElementById('resetTestBtn').addEventListener('click', resetTest);
+
+  renderTest();
+  toggleScrollBtn();
+})();
+</script>
+</body>
+</html>
